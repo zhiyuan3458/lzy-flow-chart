@@ -1,6 +1,6 @@
 # lzy-flow-chart
 
-  &nbsp;&nbsp;&nbsp;lzy-flow-chart是一个流程图设计的demo。由于笔者觉得网上的一些流程图插件要不是需要收费，要不开源的很多满足不了大多开发者的需求设计，故自己开发了一个demo，并且对该demo就行开源。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lzy-flow-chart是一个流程图设计的demo。由于笔者觉得网上的一些流程图插件要不是需要收费，要不开源的很多满足不了大多开发者的需求设计，故自己开发了一个demo，并且对该demo就行开源。
 	
 ## 打开demo步骤
 1、先clone项目到本地
