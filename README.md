@@ -12,6 +12,11 @@
 ## 文档
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;暂无文档。现在在项目里的src/pages/flow-chart里面有一些笔者写的自己标注的注释，可以先参考着。之后相关文档笔者将会努力肛上，发布到笔者的博客csdn中（昵称：汁源）
 <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本项目是使用umi项目搭建的，如果需要不想用umi的话，可以直接把项目中src/pages/flow-chart的目录复制到自己的项目中，然后配置一下路由即可
+### 实现了的功能：
+1. 拖动节点，创建虚节点，进行移动
+2. 拖动连线
+3. 拖拽的时候出现对齐辅助线
+4. 每个节点在距离小于5px的时候就会自动吸附对齐
 ![](https://www.showdoc.com.cn/server/api/attachment/visitfile/sign/6679807362048f0ba47a4a95993cdd24)
 	   
 	
