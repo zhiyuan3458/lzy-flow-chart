@@ -3,10 +3,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lzy-flow-chart是一个流程图设计的demo。由于笔者觉得网上的一些流程图插件要不是需要收费，要不开源的很多满足不了大多开发者的需求设计，故自己开发了一个demo，并且对该demo就行开源。
 	
 ## 打开demo步骤
-1、先clone项目到本地
-2、执行npm i或者yarn
-3、npm start或者yarn start
-4、浏览器中输入http://localhost:8002/lzy-flow-chart即可开始使用
+1. 先clone项目到本地
+2. 执行npm i或者yarn
+3. npm start或者yarn start
+4. 浏览器中输入http://localhost:8002/lzy-flow-chart即可开始使用
 
 ## 文档
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;暂无文档。现在在项目里的src/pages/flow-chart里面有一些笔者写的自己标注的注释，可以先参考着。之后相关文档笔者将会努力肛上，发布到笔者的博客csdn中（昵称：汁源）
