@@ -2,7 +2,17 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lzy-flow-chart是一个流程图设计的demo。由于笔者觉得网上的一些流程图插件要不是需要收费，要不开源的很多满足不了大多开发者的需求设计，故自己开发了一个demo，并且对该demo就行开源。
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本项目的技术是umi+react+svg
-	
+
+### 实现了的功能：
+1. 拖动节点，创建虚节点，进行移动
+2. 拖动连线
+3. 拖拽的时候出现对齐辅助线
+4. 每个节点在距离小于5px的时候就会自动吸附对齐
+
+![](https://github.com/zhiyuan3458/lzy-flow-chart/blob/master/%E6%95%88%E6%9E%9C%E5%9B%BEgif/1.gif?raw=true)
+
+![](https://github.com/zhiyuan3458/lzy-flow-chart/blob/master/%E6%95%88%E6%9E%9C%E5%9B%BEgif/2.gif?raw=true)
+
 ## 打开demo步骤
 1. 先clone项目到本地
 2. 执行npm i或者yarn
@@ -29,6 +39,11 @@
 
 #### 第三期将实现的功能：
 1. 实现碰撞检测，节点不准重叠功能（拖拽的时候如果重叠将会显示红色边框，释放鼠标后不会拖拽成功）
+2. 可以修改节点中的信息
+3. 有可能实现撤销重做功能（也有可能是第四期做）
+
+#### 第四期将实现的功能：
+1. 实现撤销重做功能
 
 ## 写在最后
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果大家对现在的设计或者代码优化有什么想法或者建议，欢迎各位在issue中向笔者灌水，笔者愿洗耳恭听。
