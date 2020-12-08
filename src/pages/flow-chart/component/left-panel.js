@@ -7,7 +7,6 @@ import { DRAG_DOM_ID } from '../utils';
 function LeftPanel (props) {
   const [isExpand, setIsExpand] = useState(false);
   const leftPanel = useRef(null);
-  let dragDOM = null;
 
   // const createDrag = (e) => {
   //   dragDOM = e.target.cloneNode(true);
@@ -49,7 +48,7 @@ function LeftPanel (props) {
       // dragDOM.style.top = `${ y }px`;
       // dragDOM.style.borderColor = isInRight(e) ? 'green' : 'red';
       const _node = { ...node, id: DRAG_DOM_ID, x, y, r: x + width, b: y + height, width, height };
-      props.moveFromLeft(_node, dragDOM);
+      props.moveFromLeft(_node);
     };
 
     const mouseup = e => {
