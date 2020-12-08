@@ -65,7 +65,13 @@
   background: antiquewhite;
   position: relative;
   &.rightRect {
+    cursor: pointer;
     margin-bottom: 0;
+    &:hover {
+      opacity: 0.8;
+      filter:alpha(opacity=60);
+      box-shadow: 3px 3px 3px #dddddd;
+    }
   }
   .point {
     width: 10px;

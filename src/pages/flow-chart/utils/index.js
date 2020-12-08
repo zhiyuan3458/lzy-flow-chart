@@ -9,7 +9,8 @@ export const DRAG_DOM_ID = 'DRAG-DOM';
 export const DRAG_DOM_STYLE = {
   position: 'absolute',
   opacity: 0.6,
-  filter: 'alpha(opacity=60)'
+  filter: 'alpha(opacity=60)',
+  cursor: 'move'
 };
 
 export function getUUID () {
