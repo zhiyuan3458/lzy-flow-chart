@@ -27,9 +27,7 @@
 2. 拖动连线
 3. 拖拽的时候出现对齐辅助线
 4. 每个节点在距离小于5px的时候就会自动吸附对齐
-![](https://www.showdoc.com.cn/server/api/attachment/visitfile/sign/6679807362048f0ba47a4a95993cdd24)
 	   
-	
 ## TODO LIST
 #### 第二期将实现的功能：
 1. 实现删除节点（使用鼠标选中再按delete键删除）
@@ -52,9 +50,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 最后，希望各位觉得看完代码之后觉得有用的话，不妨可以高抬贵手，扫一下下面的码，给笔者一些小费~~~
  开发 + 写文档可不是一件容易的事情，不过笔者的初衷还是希望能开源一款大家都能用得上的demo出来给大家参考。
 
-**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;卖个小广告：笔者也承接前端的各种项目噢，欢迎大家有项目的可以直接联系我的qq群:534775880或者扫下面的二维码，备注一下“前端接单”即可，笔者验证后将会通过加qq的请求
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;卖个小广告：笔者也承接前端的各种项目噢，欢迎大家有项目的可以直接联系我的qq群:534775880或者扫下面的二维码，备注一下“前端接单”即可，笔者验证后将会通过加qq的请求**
 
-![](https://www.showdoc.com.cn/server/api/attachment/visitfile/sign/82d114ac01968eb882a2541f08df6b29)
+<image width="30%" src="https://www.showdoc.com.cn/server/api/attachment/visitfile/sign/82d114ac01968eb882a2541f08df6b29" />
 
 在未来的计划中，笔者还打算开一个qq群，方便大家在qq中向笔者灌水，大家也可以互相讨论技术问题**
 
