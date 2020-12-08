@@ -52,7 +52,7 @@
 
 **&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;卖个小广告：笔者也承接前端的各种项目噢，欢迎大家有项目的可以直接联系我的qq群:534775880或者扫下面的二维码，备注一下“前端接单”即可，笔者验证后将会通过加qq的请求**
 
-<image width="30%" src="https://www.showdoc.com.cn/server/api/attachment/visitfile/sign/82d114ac01968eb882a2541f08df6b29" />
+<image width="30%" src="https://github.com/zhiyuan3458/lzy-flow-chart/blob/master/%E6%95%88%E6%9E%9C%E5%9B%BEgif/qq.jpg?raw=true" />
 
 在未来的计划中，笔者还打算开一个qq群，方便大家在qq中向笔者灌水，大家也可以互相讨论技术问题**
 
