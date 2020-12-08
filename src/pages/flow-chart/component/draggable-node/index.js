@@ -12,6 +12,7 @@ function DraggableNode (props) {
     const nodeY = node.y;
     let b = null;
     let r = null;
+
     const onMouseMove = e => {
       const curX = e.clientX;
       const curY = e.clientY;
