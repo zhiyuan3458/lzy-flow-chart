@@ -23,7 +23,6 @@ function LeftPanel (props) {
   const onMouseDown = (e, node) => {
     e.preventDefault();
 
-    setIsExpand(false);
     // let flag = false;
     // createDrag(e);
     const leftPanelTop = leftPanel.current.offsetTop;
@@ -40,6 +39,7 @@ function LeftPanel (props) {
     }
 
     const move = e => {
+      setIsExpand(false);
       const curX = e.clientX;
       const curY = e.clientY;
       const x = curX -tempX;
