@@ -39,6 +39,7 @@ function LeftPanel (props) {
     }
 
     const move = e => {
+      e.target.style.cursor = 'move';
       setIsExpand(false);
       const curX = e.clientX;
       const curY = e.clientY;

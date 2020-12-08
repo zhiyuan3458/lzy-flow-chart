@@ -5,7 +5,7 @@ import { arrowHei } from '../../utils';
 
 function Node (props) {
   const nodeRef = useRef(null);
-  const { node, clickNode } = props;
+  const { martix, node, clickNode } = props;
 
   const onMouseDown = (e, node) => {
     e.preventDefault();
@@ -33,6 +33,7 @@ function Node (props) {
       x: node.x + Math.floor(node.width / 2),
       y: node.y - arrowHei
     };
+   
     props.addEdge({ toPos, toNodeId: node.id }, e);
   };
 
@@ -47,7 +48,10 @@ function Node (props) {
     <div
       ref={ nodeRef }
       id={ node.id }
-      className={ `${ Styles.rect } ${ Styles.rightRect }` }
+      className={
+        martix.id === node.id ?
+          `${ Styles.rect } ${ Styles.rightRect } ${ Styles.selected }` : `${ Styles.rect } ${ Styles.rightRect }`
+      }
       style={ node.style }
       onClick={ e => _clickNode(node, e) }
       onMouseUp={ e => onMouseUp(e, node) }

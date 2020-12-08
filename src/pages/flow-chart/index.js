@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import LeftPanel from './component/left-panel';
 import RightPanel from './component/right-panel';
 import Styles from './index.less';
@@ -22,6 +22,20 @@ function FlowChart () {
   const latestNodes = useRef({});
   latestEdges.current = edges;
   latestNodes.current = nodes;
+
+  /* 监听按下Delete键 */
+  useEffect(() => {
+    function onKeyUp (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      if ((e.key && e.key.toLowerCase() === 'delete') || (e && e.keyCode === 46)) {
+        setNodes(nodes => nodes.filter(item => item.id !== martix.id));
+        setMartix(initMartix());
+      }
+    }
+    document.addEventListener('keyup', onKeyUp);
+    return () => document.removeEventListener('keyup', onKeyUp);
+  }, [martix]);
 
   /* 从左边栏拖拽出一个节点进行添加 */
   const addNode = (node) => {
@@ -71,6 +85,7 @@ function FlowChart () {
     const edges = latestEdges.current;
     let dragVNode = nodes.find(item => item.id === DRAG_DOM_ID);
     if (!dragVNode) return false;
+
     const edgesTemp = edges.map(item => {
       if (item.fromNodeId === node.id) {
         return {
@@ -112,7 +127,7 @@ function FlowChart () {
 
   /* 在右侧编辑器移动节点之后释放鼠标按键触发 */
   const onCanvasMouseUp = e => {
-    setEdges(edges.filter(item => !!item.toNodeId));
+    setEdges(edges => edges.filter(item => !!item.toNodeId));
     setMartix(initMartix());
     setGuideLines([]);
   };
@@ -121,6 +136,7 @@ function FlowChart () {
   const addEdge = ({ toPos, toNodeId }, e) => {
     e.preventDefault();
     e.stopPropagation();
+    const edges = latestEdges.current;
     const edgesTemp = edges.filter(edge => toNodeId && edge.fromNodeId !== toNodeId).map(edge => {
       if (!edge.toNodeId) {
         return { ...edge, toPos, toNodeId };
@@ -161,17 +177,14 @@ function FlowChart () {
     setMartix(node);
   };
 
-  const removeNode = (node, e) => {
-    setNodes(nodes => nodes.filter(item => item.id !== martix.id));
-  };
-
   return (
-    <div className={ Styles.flowChart }>
+    <div tabIndex={ 1 } className={ Styles.flowChart }>
       <LeftPanel
         dropNode={ addNode }
         moveFromLeft={ moveFromLeft }
       />
       <RightPanel
+        martix={ martix }
         nodes={ nodes }
         edges={ edges }
         moveEdges={ moveEdges }

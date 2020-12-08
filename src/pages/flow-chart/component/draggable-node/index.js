@@ -5,6 +5,7 @@ function DraggableNode (props) {
   const { node, dropNode, onMoveNode } = props;
 
   const onMouseDown = useCallback((e, node) => {
+    e.stopPropagation();
     e.preventDefault();
     const initX = e.clientX;
     const initY = e.clientY;

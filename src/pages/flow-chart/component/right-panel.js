@@ -10,7 +10,7 @@ import GuideLine from './guide-line';
 
 function RightPanel (props) {
   const rightPanel = useRef(null);
-  const { nodes, edges, moveEdges,
+  const { martix, nodes, edges, moveEdges,
     guideLines, dropNode, dragLine,
     onCanvasMouseUp, addEdge, onMoveNode,
     clickNode
@@ -45,6 +45,7 @@ function RightPanel (props) {
             dropNode={ dropNode }
           >
             <Node
+              martix={ martix }
               node={ node }
               dragLine={ dragLine }
               addEdge={ addEdge }
