@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
 import Styles from '../index.less';
 import { dragGrp } from '@/pages/flow-chart/mock';
 import { getUUID } from '@/pages/flow-chart/utils';
@@ -10,23 +9,23 @@ function LeftPanel (props) {
   const leftPanel = useRef(null);
   let dragDOM = null;
 
-  const createDrag = (e) => {
-    dragDOM = e.target.cloneNode(true);
-    dragDOM.className = e.target.className;
-    dragDOM.style.opacity = 0.6;
-    dragDOM.style.position = 'fixed';
-    dragDOM.style.filter = 'alpha(opacity=60)';
-    dragDOM.style.left = e.target.offsetLeft + 'px';
-    dragDOM.style.top = e.target.offsetTop + 'px';
-    document.body.appendChild(dragDOM);
-  };
+  // const createDrag = (e) => {
+  //   dragDOM = e.target.cloneNode(true);
+  //   dragDOM.className = e.target.className;
+  //   dragDOM.style.opacity = 0.6;
+  //   dragDOM.style.position = 'fixed';
+  //   dragDOM.style.filter = 'alpha(opacity=60)';
+  //   dragDOM.style.left = e.target.offsetLeft + 'px';
+  //   dragDOM.style.top = e.target.offsetTop + 'px';
+  //   document.body.appendChild(dragDOM);
+  // };
 
   /* 开始拖拽时 */
   const onMouseDown = (e, node) => {
     e.preventDefault();
 
     setIsExpand(false);
-    let flag = false;
+    // let flag = false;
     // createDrag(e);
     const leftPanelTop = leftPanel.current.offsetTop;
     // const leftPanelWidth = leftPanel.current.offsetWidth;
