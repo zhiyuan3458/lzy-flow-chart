@@ -37,18 +37,27 @@ function FlowChart () {
     setGuideLines([]);
   };
 
+  /**
+   * @desc 设置辅助线和节点组
+   * 有两个函数用到这个函数了，所以抽出来
+   */
+  const setGuideLinesAndNodes = (dragVNode = {}, nodes = []) => {
+    if (nodes.find(item => item.id === dragVNode.id)) {
+      setNodes(nodes => nodes.map(item => item.id === dragVNode.id ? dragVNode : item));
+    } else {
+      setNodes(nodes => [...nodes, dragVNode]);
+    }
+    const { newNodes, guideLines, newNode } = setGuideLine(dragVNode, latestNodes.current);
+    return { newNodes, guideLines, newNode };
+  };
+
   /* 从左边栏拉出一个box（鼠标还没释放）,一直拖动中 */
   const moveFromLeft = (node) => {
     // const guideLines = setGuideLine(node, latestNodes.current, dragDOM);
     // setGuideLines(guideLines);
     const nodes = latestNodes.current;
     const dragVNode = { ...node, id: DRAG_DOM_ID, style: DRAG_DOM_STYLE };
-    if (nodes.find(item => item.id === dragVNode.id)) {
-      setNodes(nodes => nodes.map(item => item.id === dragVNode.id ? dragVNode : item));
-    } else {
-      setNodes(nodes => [...nodes, dragVNode]);
-    }
-    const { newNodes, guideLines } = setGuideLine(dragVNode, latestNodes.current);
+    const { newNodes, guideLines } = setGuideLinesAndNodes(dragVNode, nodes);
     setNodes(newNodes);
     setGuideLines(guideLines);
   };
@@ -125,12 +134,7 @@ function FlowChart () {
     const edges = latestEdges.current;
     let dragVNode = { ...node, id: DRAG_DOM_ID, style: DRAG_DOM_STYLE };
 
-    if (nodes.find(item => item.id === dragVNode.id)) {
-      setNodes(nodes => nodes.map(item => item.id === dragVNode.id ? dragVNode : item));
-    } else {
-      setNodes(nodes => [...nodes, dragVNode]);
-    }
-    const { newNodes, guideLines, newNode } = setGuideLine(dragVNode, latestNodes.current);
+    const { newNodes, guideLines, newNode } = setGuideLinesAndNodes(dragVNode, nodes);
     setNodes(newNodes);
     setGuideLines(guideLines);
     let relateEdges = edges.filter(item => item.toNodeId === node.id || item.fromNodeId === node.id);
