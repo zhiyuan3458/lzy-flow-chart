@@ -28,6 +28,7 @@ function FlowChart () {
     // const guideLines = setGuideLine(node, latestNodes.current, dragDOM);
     setNodes(nodes => {
       const dragVNode = nodes.find(item => item.id === DRAG_DOM_ID);
+      if (!dragVNode) return nodes;
       if (dragVNode) {
         const { x, y, b, r } = dragVNode;
         node = { ...node, x, y, b, r };
@@ -65,9 +66,11 @@ function FlowChart () {
   /* 在右边编辑器中，拖动节点之后，释放鼠标后触发 */
   const dropNode = (node, e) => {
     setMoveEdges([]);
+    setGuideLines([]);
     const nodes = latestNodes.current;
     const edges = latestEdges.current;
     let dragVNode = nodes.find(item => item.id === DRAG_DOM_ID);
+    if (!dragVNode) return false;
     const edgesTemp = edges.map(item => {
       if (item.fromNodeId === node.id) {
         return {
@@ -86,12 +89,12 @@ function FlowChart () {
       }
     });
     setEdges(edgesTemp);
+
     setNodes(nodes => {
       const { x, y, b, r } = dragVNode;
       node = { ...node, x, y, b, r };
       return nodes.filter(item => item.id !== DRAG_DOM_ID).map(item => item.id === node.id ? node : item)
     });
-    setGuideLines([]);
   };
 
   /* 拖拽节点的线（相当于出发了某个节点的下面的端点的onmousedown事件） */
@@ -153,6 +156,15 @@ function FlowChart () {
     setMoveEdges(relateEdges);
   };
 
+  /* 点击选择节点 */
+  const clickNode = (node, e) => {
+    setMartix(node);
+  };
+
+  const removeNode = (node, e) => {
+    setNodes(nodes => nodes.filter(item => item.id !== martix.id));
+  };
+
   return (
     <div className={ Styles.flowChart }>
       <LeftPanel
@@ -170,6 +182,7 @@ function FlowChart () {
         onCanvasMouseUp={ onCanvasMouseUp }
         addEdge={ addEdge }
         onMoveNode={ onMoveNode }
+        clickNode={ clickNode }
       />
     </div>
   );
