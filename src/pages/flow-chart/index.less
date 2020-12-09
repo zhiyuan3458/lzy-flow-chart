@@ -46,7 +46,6 @@
       left: 0;
       top: 0;
       pointer-events: none;
-      z-index: 1;
     }
   }
 }
@@ -97,6 +96,20 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
+  }
+}
+
+.flowLine {
+  cursor: pointer;
+  stroke: blue;
+  stroke-width: 2px;
+  pointer-events: auto;
+  &:hover {
+    stroke-width: 4px;
+    transition: all .5s;
+  }
+  &.clicked {
+    stroke-width: 4px;
   }
 }
 

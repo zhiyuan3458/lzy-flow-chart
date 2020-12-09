@@ -30,8 +30,12 @@ function FlowChart () {
       e.preventDefault();
       if ((e.key && e.key.toLowerCase() === 'delete') || (e && e.keyCode === 46)) {
         const martixId = martix.id;
-        setNodes(nodes => nodes.filter(item => item.id !== martixId));
-        setEdges(edges => edges.filter(item => item.fromNodeId !== martixId && item.toNodeId !== martixId));
+        if (martix.fromNodeId) {
+          setEdges(edges => edges.filter(item => item.id !== martixId));
+        } else {
+          setNodes(nodes => nodes.filter(item => item.id !== martixId));
+          setEdges(edges => edges.filter(item => item.fromNodeId !== martixId && item.toNodeId !== martixId));
+        }
         setMartix(initMartix());
       }
     }
@@ -186,6 +190,11 @@ function FlowChart () {
     setMartix(node);
   };
 
+  /* 点击某条连线 */
+  const chooseEdge = (edge, e) => {
+    setMartix(edge);
+  };
+
   return (
     <div tabIndex={ 1 } className={ Styles.flowChart }>
       <LeftPanel
@@ -205,6 +214,7 @@ function FlowChart () {
         addEdge={ addEdge }
         onMoveNode={ onMoveNode }
         clickNode={ clickNode }
+        chooseEdge={ chooseEdge }
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import DraggableNode from '@/pages/flow-chart/component/draggable-node';
 import Node from '@/pages/flow-chart/component/node';
 import Styles from '../index.less';
@@ -13,7 +13,7 @@ function RightPanel (props) {
   const { martix, nodes, edges, moveEdges,
     guideLines, dropNode, dragLine,
     onCanvasMouseUp, addEdge, onMoveNode,
-    clickNode
+    clickNode, chooseEdge
   } = props;
 
   const onMouseMove = e => {
@@ -59,7 +59,9 @@ function RightPanel (props) {
           edges.map(edge => (
             <FlowLine
               key={ edge.id }
+              martix={ martix }
               edge={ edge }
+              chooseEdge={ chooseEdge }
             />
           ))
         }
