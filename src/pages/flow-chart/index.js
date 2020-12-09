@@ -29,7 +29,9 @@ function FlowChart () {
       e.stopPropagation();
       e.preventDefault();
       if ((e.key && e.key.toLowerCase() === 'delete') || (e && e.keyCode === 46)) {
-        setNodes(nodes => nodes.filter(item => item.id !== martix.id));
+        const martixId = martix.id;
+        setNodes(nodes => nodes.filter(item => item.id !== martixId));
+        setEdges(edges => edges.filter(item => item.fromNodeId !== martixId && item.toNodeId !== martixId));
         setMartix(initMartix());
       }
     }
