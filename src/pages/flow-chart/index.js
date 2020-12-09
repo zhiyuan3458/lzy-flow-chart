@@ -155,7 +155,7 @@ function FlowChart () {
   };
 
   /* 移动节点时触发 */
-  const onMoveNode = (node) => {
+  const onMoveNode = (node, e) => {
     const nodes = latestNodes.current;
     const edges = latestEdges.current;
     let dragVNode = { ...node, id: DRAG_DOM_ID, style: DRAG_DOM_STYLE, targetId: node.id };
