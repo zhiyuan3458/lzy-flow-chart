@@ -136,14 +136,21 @@ function FlowChart () {
   const addEdge = ({ toPos, toNodeId }, e) => {
     e.preventDefault();
     e.stopPropagation();
-    const edges = latestEdges.current;
-    const edgesTemp = edges.filter(edge => toNodeId && edge.fromNodeId !== toNodeId).map(edge => {
-      if (!edge.toNodeId) {
-        return { ...edge, toPos, toNodeId };
-      }
-      return edge;
+    const nowFromNodeId = martix.nodeId;
+    if (nowFromNodeId === toNodeId) {
+      setEdges(edges => edges.filter(edge => edge.toNodeId));
+      return false;
+    };
+
+    setEdges(edges => {
+      return edges.filter(edge => edge.fromNodeId !== nowFromNodeId || edge.toNodeId !== toNodeId).map(edge => {
+        if (!edge.toNodeId && edge.fromNodeId !== toNodeId) {
+          return { ...edge, toPos, toNodeId };
+        }
+        return edge;
+      });
     });
-    setEdges(edgesTemp);
+    setMoveEdges([]);
     setMartix(initMartix());
   };
 
@@ -151,7 +158,7 @@ function FlowChart () {
   const onMoveNode = (node) => {
     const nodes = latestNodes.current;
     const edges = latestEdges.current;
-    let dragVNode = { ...node, id: DRAG_DOM_ID, style: DRAG_DOM_STYLE };
+    let dragVNode = { ...node, id: DRAG_DOM_ID, style: DRAG_DOM_STYLE, targetId: node.id };
 
     const { newNodes, guideLines, newNode } = setGuideLinesAndNodes(dragVNode, nodes);
     setNodes(newNodes);
