@@ -146,7 +146,7 @@ function FlowChart () {
     if (nowFromNodeId === toNodeId) {
       setEdges(edges => edges.filter(edge => edge.toNodeId));
       return false;
-    };
+    }
 
     setEdges(edges => {
       return edges.filter(edge => edge.fromNodeId !== nowFromNodeId || edge.toNodeId !== toNodeId).map(edge => {
