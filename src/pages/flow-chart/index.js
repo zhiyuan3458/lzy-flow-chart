@@ -11,7 +11,8 @@ function initMartix () {
   };
 }
 
-function FlowChart () {
+function FlowChart (props) {
+  const { canDragCanvas } = props;
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const [moveEdges, setMoveEdges] = useState([]);
@@ -205,6 +206,7 @@ function FlowChart () {
         martix={ martix }
         nodes={ nodes }
         edges={ edges }
+        canDragCanvas={ canDragCanvas }
         moveEdges={ moveEdges }
         guideLines={ guideLines }
         dropNode={ dropNode }

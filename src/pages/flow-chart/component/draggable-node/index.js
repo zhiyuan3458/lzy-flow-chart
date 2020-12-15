@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react';
 
 function DraggableNode (props) {
   const dragRef = useRef(null);
-  const { node, dropNode, onMoveNode } = props;
+  const { node, dropNode, onMoveNode, canDragCanvas } = props;
 
   const onMouseDown = useCallback((e, node) => {
     e.stopPropagation();
@@ -19,8 +19,10 @@ function DraggableNode (props) {
       const curY = e.clientY;
       let x = nodeX + (curX - initX);
       let y = nodeY + (curY - initY);
-      if (x < 0) x = 0;
-      if (y < 0) y = 0;
+      if (!canDragCanvas) {
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+      }
 
       r = x + node.width;
       b = y + node.height;
