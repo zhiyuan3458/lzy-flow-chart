@@ -19,7 +19,7 @@ function RightPanel (props) {
   } = props;
 
   useEffect(() => {
-    smallRectRef.current.style.zoom = times;
+    smallRectRef.current.style.transform = `scale(${ times })`;
   }, [times]);
 
   const onMouseDown = e => {
@@ -68,6 +68,43 @@ function RightPanel (props) {
     // smallRectRef.current.style.zoom = '2';
   };
 
+  /* 鼠标滚动缩放 */
+  // const onMouseWheel = e => {
+  //   const scaleSize = 0.05;
+  //   const initMouX = e.clientX;
+  //   const initMouY = e.clientY;
+  //   const smallRect = document.getElementById(SMALL_RECT);
+  //   const { width: contWid, top: contTop, left: contLeft } = smallRect.getBoundingClientRect();
+  //   const disX = initMouX - contLeft;
+  //   const disY = initMouY - contTop;
+  //   const xPercent = disX * 100 / contWid;
+  //   const yPercent = disY * 100 / contWid;
+  //   const delta = e?.nativeEvent?.wheelDelta || e?.nativeEvent?.detail;
+  //   e.stopPropagation();
+  //   if (delta > 0) {
+  //     let newSize = Math.floor(this.state.size * 100) / 100 + scaleSize;
+  //     if (newSize > 2) {
+  //       newSize = 2;
+  //       this.setState(state => ({ ...state, size: newSize }));
+  //       return false;
+  //     }
+  //     this.setState(state => ({ ...state, size: newSize }));
+  //     this.smallRect.current.style.transform = `scale(${ newSize })`;
+  //     this.smallRect.current.style.webkitTransformOrigin = `${ xPercent }% ${ yPercent }%`;
+  //   } else {
+  //     let newSize = Math.floor(this.state.size * 100) / 100 - scaleSize;
+  //     if (newSize <= 0.4) {
+  //       newSize = 0.4;
+  //       this.setState(state => ({ ...state, size: newSize }));
+  //       return false;
+  //     }
+  //     newSize = newSize.toFixed(2);
+  //     this.setState(state => ({ ...state, size: newSize }));
+  //     this.smallRect.current.style.transform = `scale(${ newSize })`;
+  //     this.smallRect.current.style.webkitTransformOrigin = `${ xPercent }% ${ yPercent }%`;
+  //   }
+  // };
+
   return (
     <div
       ref={ rightPanel }
@@ -78,7 +115,13 @@ function RightPanel (props) {
       onMouseUp={ onMouseUp }
       onWheel={ onWheel }
     >
-      <div ref={ smallRectRef } className={ Styles.smallReact }>
+      <div
+        ref={ smallRectRef }
+        className={ Styles.smallReact }
+        style={{
+          transformOrigin: '500% 500%'
+        }}
+      >
         {
           nodes.map(node => (
             <DraggableNode
