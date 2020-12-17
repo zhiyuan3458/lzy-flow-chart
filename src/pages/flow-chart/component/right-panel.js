@@ -12,10 +12,12 @@ function RightPanel (props) {
   const rightPanel = useRef(null);
   const smallRectRef = useRef(null);
   const [times, setTimes] = useState(1);
+  const [transformOrigin, setTransformOrigin] = useState({ x: 0, y: 0 });
   const { martix, nodes, edges, moveEdges,
     guideLines, dropNode, dragLine,
     onCanvasMouseUp, addEdge, onMoveNode,
-    clickNode, chooseEdge, canDragCanvas
+    clickNode, chooseEdge, canDragCanvas,
+    onCanvasMove,
   } = props;
 
   useEffect(() => {
@@ -36,6 +38,7 @@ function RightPanel (props) {
       const disY = initTop + curY - initY;
       smallRectRef.current.style.left = `${ disX }px`;
       smallRectRef.current.style.top = `${ disY }px`;
+      onCanvasMove({ x: disX, y: disY }, e);
     }
 
     function _onMounseUp (e) {
@@ -50,7 +53,7 @@ function RightPanel (props) {
   };
 
   const onMouseMove = e => {
-    const { top: rightPanelTop, left: rightPanelLeft } = rightPanel.current.getBoundingClientRect();
+    const { top: rightPanelTop, left: rightPanelLeft } = smallRectRef.current.getBoundingClientRect();
     const x = e.clientX - rightPanelLeft;
     const y = e.clientY - rightPanelTop - arrowHei;
     props.onMouseMoveInRight({ x, y });
@@ -60,50 +63,29 @@ function RightPanel (props) {
     onCanvasMouseUp(e);
   };
 
+  /* 鼠标滚轮触发缩放 */
   const onWheel = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const initMouX = e.clientX;
+    const initMouY = e.clientY;
+    const smallRectWidth = smallRectRef.current.offsetWidth;
+    const smallRectHeight = smallRectRef.current.offsetHeight;
+    const smallRectTop = smallRectRef.current.offsetTop;
+    const smallRectLeft = smallRectRef.current.offsetLeft;
+    const disX = initMouX - smallRectLeft;
+    const disY = initMouY - smallRectTop;
+      const xPercent = disX * 100 / smallRectWidth;
+      const yPercent = disY * 100 / smallRectHeight;
     const wheelDelta = e?.nativeEvent?.wheelDelta;
     if (wheelDelta) {
       setTimes(times => wheelDelta > 0 ? times + 0.1 : times - 0.1);
+      setTransformOrigin({ x: xPercent, y: yPercent });
     }
-    // smallRectRef.current.style.zoom = '2';
   };
 
-  /* 鼠标滚动缩放 */
-  // const onMouseWheel = e => {
-  //   const scaleSize = 0.05;
-  //   const initMouX = e.clientX;
-  //   const initMouY = e.clientY;
-  //   const smallRect = document.getElementById(SMALL_RECT);
-  //   const { width: contWid, top: contTop, left: contLeft } = smallRect.getBoundingClientRect();
-  //   const disX = initMouX - contLeft;
-  //   const disY = initMouY - contTop;
-  //   const xPercent = disX * 100 / contWid;
-  //   const yPercent = disY * 100 / contWid;
-  //   const delta = e?.nativeEvent?.wheelDelta || e?.nativeEvent?.detail;
-  //   e.stopPropagation();
-  //   if (delta > 0) {
-  //     let newSize = Math.floor(this.state.size * 100) / 100 + scaleSize;
-  //     if (newSize > 2) {
-  //       newSize = 2;
-  //       this.setState(state => ({ ...state, size: newSize }));
-  //       return false;
-  //     }
-  //     this.setState(state => ({ ...state, size: newSize }));
-  //     this.smallRect.current.style.transform = `scale(${ newSize })`;
-  //     this.smallRect.current.style.webkitTransformOrigin = `${ xPercent }% ${ yPercent }%`;
-  //   } else {
-  //     let newSize = Math.floor(this.state.size * 100) / 100 - scaleSize;
-  //     if (newSize <= 0.4) {
-  //       newSize = 0.4;
-  //       this.setState(state => ({ ...state, size: newSize }));
-  //       return false;
-  //     }
-  //     newSize = newSize.toFixed(2);
-  //     this.setState(state => ({ ...state, size: newSize }));
-  //     this.smallRect.current.style.transform = `scale(${ newSize })`;
-  //     this.smallRect.current.style.webkitTransformOrigin = `${ xPercent }% ${ yPercent }%`;
-  //   }
-  // };
+  const rightPanelWid = rightPanel?.current?.offsetWidth;
+  const rightPanelHei = rightPanel?.current?.offsetHeight;
 
   return (
     <div
@@ -116,10 +98,11 @@ function RightPanel (props) {
       onWheel={ onWheel }
     >
       <div
+        id="SMALLRECT"
         ref={ smallRectRef }
         className={ Styles.smallReact }
         style={{
-          transformOrigin: '500% 500%'
+          transformOrigin: `${ transformOrigin.x }% ${ transformOrigin.y }%`
         }}
       >
         {
@@ -142,29 +125,36 @@ function RightPanel (props) {
             </DraggableNode>
           ))
         }
-        <svg className={ Styles.canvas } xmlns="http://www.w3.org/2000/svg" version="1.1">
-          {
-            edges.map(edge => (
-              <FlowLine
-                key={ edge.id }
-                martix={ martix }
-                edge={ edge }
-                chooseEdge={ chooseEdge }
-              />
-            ))
-          }
-          {
-            moveEdges.map(edge => (
-              <MoveLine key={ edge.id } edge={ edge } />
-            ))
-          }
-          {
-            guideLines.map(edge => (
-              <GuideLine key={ edge.id } edge={ edge } />
-            ))
-          }
-        </svg>
       </div>
+      <svg
+        style={{
+          width: rightPanelWid,
+          height: rightPanelHei
+        }}
+        className={ Styles.canvas }
+        xmlns="http://www.w3.org/2000/svg" version="1.1"
+      >
+        {
+          edges.map(edge => (
+            <FlowLine
+              key={ edge.id }
+              martix={ martix }
+              edge={ edge }
+              chooseEdge={ chooseEdge }
+            />
+          ))
+        }
+        {
+          moveEdges.map(edge => (
+            <MoveLine key={ edge.id } edge={ edge } />
+          ))
+        }
+        {
+          guideLines.map(edge => (
+            <GuideLine key={ edge.id } edge={ edge } />
+          ))
+        }
+      </svg>
     </div>
   );
 }

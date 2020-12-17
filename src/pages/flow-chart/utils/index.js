@@ -1,4 +1,5 @@
 export const containerId = 'RIGHT_PANEL';
+export const wrapperId = 'SMALLRECT';
 
 export const arrowHei = 10;
 

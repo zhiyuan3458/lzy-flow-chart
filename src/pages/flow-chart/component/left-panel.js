@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Styles from '../index.less';
 import { dragGrp } from '@/pages/flow-chart/mock';
-import { getUUID } from '@/pages/flow-chart/utils';
+import { getUUID, wrapperId } from '@/pages/flow-chart/utils';
 import { DRAG_DOM_ID } from '../utils';
 
 function LeftPanel (props) {
@@ -38,13 +38,17 @@ function LeftPanel (props) {
       return left > 0 && top > 0;
     }
 
+    const dom = document.getElementById(wrapperId);
+    const smallRectLeft = dom.offsetLeft;
+    const smallRectTop = dom.offsetTop;
+
     const move = e => {
       e.target.style.cursor = 'move';
       setIsExpand(false);
       const curX = e.clientX;
       const curY = e.clientY;
-      const x = curX -tempX;
-      const y = curY - tempY;
+      const x = curX -tempX - smallRectLeft;
+      const y = curY - tempY - smallRectTop;
       // dragDOM.style.left = `${ x }px`;
       // dragDOM.style.top = `${ y }px`;
       // dragDOM.style.borderColor = isInRight(e) ? 'green' : 'red';
@@ -63,8 +67,8 @@ function LeftPanel (props) {
       if (!isInRight(e)) {
         return false;
       }
-      const x = e.clientX - tempX;
-      const y = e.clientY - tempY - leftPanelTop;
+      const x = e.clientX - tempX - smallRectLeft;
+      const y = e.clientY - tempY - leftPanelTop - smallRectTop;
       const r = x + width;
       const b = y + height;
       const _node = { ...node, id: getUUID(), x, y, r, b, width, height };

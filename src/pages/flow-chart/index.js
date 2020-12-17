@@ -196,6 +196,18 @@ function FlowChart (props) {
     setMartix(edge);
   };
 
+  const onCanvasMove = ({ x, y }, e) => {
+    setEdges(edges => {
+      return edges.map(edge => {
+        return {
+          ...edge,
+          formPos: { x: edge.fromPos.x - x, y: edge.fromPos.y - y },
+          toPos: { x: edge.toPos.x - x, y: edge.toPos.y - y },
+        };
+      })
+    });
+  };
+
   return (
     <div tabIndex={ 1 } className={ Styles.flowChart }>
       <LeftPanel
@@ -206,7 +218,7 @@ function FlowChart (props) {
         martix={ martix }
         nodes={ nodes }
         edges={ edges }
-        canDragCanvas={ canDragCanvas }
+        canDragCanvas={ canDragCanvas || true }
         moveEdges={ moveEdges }
         guideLines={ guideLines }
         dropNode={ dropNode }
@@ -217,6 +229,7 @@ function FlowChart (props) {
         onMoveNode={ onMoveNode }
         clickNode={ clickNode }
         chooseEdge={ chooseEdge }
+        onCanvasMove={ onCanvasMove }
       />
     </div>
   );
