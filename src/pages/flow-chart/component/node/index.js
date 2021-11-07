@@ -33,7 +33,7 @@ function Node (props) {
       x: node.x + Math.floor(node.width / 2),
       y: node.y - arrowHei
     };
-   
+
     props.addEdge({ toPos, toNodeId: node.id }, e);
   };
 

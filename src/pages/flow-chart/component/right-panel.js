@@ -35,26 +35,26 @@ function RightPanel (props) {
       onMouseMove={ onMouseMove }
       onMouseUp={ onMouseUp }
     >
-      {
-        nodes.map(node => (
-          <DraggableNode
-            container={ rightPanel.current }
-            key={ node.id }
-            node={ node }
-            onMoveNode={ onMoveNode }
-            dropNode={ dropNode }
-          >
-            <Node
-              martix={ martix }
+      <div className={ Styles.relativeRect }>
+        {
+          nodes.map(node => (
+            <DraggableNode
+              container={ rightPanel.current }
+              key={ node.id }
               node={ node }
-              dragLine={ dragLine }
-              addEdge={ addEdge }
-              clickNode={ clickNode }
-            />
-          </DraggableNode>
-        ))
-      }
-      <svg className={ Styles.canvas } xmlns="http://www.w3.org/2000/svg" version="1.1">
+              onMoveNode={ onMoveNode }
+              dropNode={ dropNode }
+            >
+              <Node
+                martix={ martix }
+                node={ node }
+                dragLine={ dragLine }
+                addEdge={ addEdge }
+                clickNode={ clickNode }
+              />
+            </DraggableNode>
+          ))
+        }
         {
           edges.map(edge => (
             <FlowLine
@@ -65,17 +65,29 @@ function RightPanel (props) {
             />
           ))
         }
-        {
-          moveEdges.map(edge => (
-            <MoveLine key={ edge.id } edge={ edge } />
-          ))
-        }
-        {
-          guideLines.map(edge => (
-            <GuideLine key={ edge.id } edge={ edge } />
-          ))
-        }
-      </svg>
+      </div>
+      {/*<svg className={ Styles.canvas } xmlns="http://www.w3.org/2000/svg" version="1.1">*/}
+      {/*  {*/}
+      {/*    edges.map(edge => (*/}
+      {/*      <FlowLine*/}
+      {/*        key={ edge.id }*/}
+      {/*        martix={ martix }*/}
+      {/*        edge={ edge }*/}
+      {/*        chooseEdge={ chooseEdge }*/}
+      {/*      />*/}
+      {/*    ))*/}
+      {/*  }*/}
+      {/*  {*/}
+      {/*    moveEdges.map(edge => (*/}
+      {/*      <MoveLine key={ edge.id } edge={ edge } />*/}
+      {/*    ))*/}
+      {/*  }*/}
+      {/*  {*/}
+      {/*    guideLines.map(edge => (*/}
+      {/*      <GuideLine key={ edge.id } edge={ edge } />*/}
+      {/*    ))*/}
+      {/*  }*/}
+      {/*</svg>*/}
     </div>
   );
 }

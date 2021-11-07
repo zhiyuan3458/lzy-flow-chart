@@ -4,6 +4,7 @@ import RightPanel from './component/right-panel';
 import Styles from './index.less';
 import { getUUID } from '@/pages/flow-chart/utils';
 import { arrowHei, DRAG_DOM_ID, setGuideLine, DRAG_DOM_STYLE } from './utils';
+import { FlowLine } from '@/pages/flow-chart/class/flow-line';
 
 function initMartix () {
   return {
@@ -128,7 +129,12 @@ function FlowChart () {
   /* 在右侧编辑器移动节点的时候，调整正在移动节点的线的位置 */
   const onMouseMoveInRight = ({ x, y }) => {
     if (!curMove || !martix.nodeId) return false;
-    setEdges(edges => edges.map(edge => edge.id === curMove.id ? { ...edge, toPos: { x, y } } : edge));
+    const flowLine = new FlowLine();
+    const toPos = { x, y };
+    flowLine.setLineByMove(curMove.fromPos, toPos);
+    setEdges(edges => edges.map(edge => edge.id === curMove.id
+      ? { ...edge, gPath: flowLine.gPath, l: flowLine.l, t: flowLine.t, w: flowLine.w, h: flowLine.h }
+      : edge));
   };
 
   /* 在右侧编辑器移动节点之后释放鼠标按键触发 */
@@ -151,7 +157,9 @@ function FlowChart () {
     setEdges(edges => {
       return edges.filter(edge => edge.fromNodeId !== nowFromNodeId || edge.toNodeId !== toNodeId).map(edge => {
         if (!edge.toNodeId && edge.fromNodeId !== toNodeId) {
-          return { ...edge, toPos, toNodeId };
+          const flowLine = new FlowLine();
+          flowLine.setLineByMove(edge.fromPos, toPos);
+          return { ...edge, ...flowLine, toPos, toNodeId };
         }
         return edge;
       });

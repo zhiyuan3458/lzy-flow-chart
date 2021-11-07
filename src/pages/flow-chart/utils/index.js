@@ -292,3 +292,16 @@ export function setGuideLine (moveNode = {}, nodes = []) {
 
   return { newNodes, guideLines, newNode };
 }
+
+/* 获取鼠标当前的left和top位置 */
+export function getMounseLeftAndTop (e) {
+  const canvas = document.getElementById(containerId);
+  if (canvas) {
+    const { left, top } = canvas.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    return { x, y };
+  } else {
+    return false;
+  }
+}

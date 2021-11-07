@@ -39,6 +39,10 @@
     height: 100%;
     position: relative;
     background: #eeeeee;
+    .relativeRect {
+      width: 0;
+      position: relative;
+    }
     .canvas {
       width: 100%;
       height: 100%;
@@ -99,17 +103,22 @@
   }
 }
 
-.flowLine {
-  cursor: pointer;
-  stroke: blue;
-  stroke-width: 2px;
-  pointer-events: none;
-  &:hover {
-    stroke-width: 4px;
-    transition: all .5s;
-  }
-  &.clicked {
-    stroke-width: 4px;
+.flowLineCont {
+  position: absolute;
+  left: 0;
+  top: 0;
+  .flowLine {
+    cursor: pointer;
+    stroke: blue;
+    stroke-width: 2px;
+    pointer-events: none;
+    &:hover {
+      stroke-width: 4px;
+      transition: all .5s;
+    }
+    &.clicked {
+      stroke-width: 4px;
+    }
   }
 }
 
