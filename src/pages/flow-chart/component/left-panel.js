@@ -3,6 +3,7 @@ import Styles from '../index.less';
 import { dragGrp } from '@/pages/flow-chart/mock';
 import { getUUID } from '@/pages/flow-chart/utils';
 import { DRAG_DOM_ID } from '../utils';
+import relativeRectInstance from '@/pages/flow-chart/class/RelativeRect';
 
 function LeftPanel (props) {
   const [isExpand, setIsExpand] = useState(false);
@@ -43,11 +44,8 @@ function LeftPanel (props) {
       setIsExpand(false);
       const curX = e.clientX;
       const curY = e.clientY;
-      const x = curX -tempX;
-      const y = curY - tempY;
-      // dragDOM.style.left = `${ x }px`;
-      // dragDOM.style.top = `${ y }px`;
-      // dragDOM.style.borderColor = isInRight(e) ? 'green' : 'red';
+      const x = curX -tempX - relativeRectInstance.l;
+      const y = curY - tempY - relativeRectInstance.t;
       const _node = { ...node, id: DRAG_DOM_ID, x, y, r: x + width, b: y + height, width, height };
       props.moveFromLeft(_node);
     };
@@ -56,15 +54,12 @@ function LeftPanel (props) {
       e.preventDefault();
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', mouseup);
-      // if (dragDOM && !flag) {
-      //   document.body.removeChild(dragDOM);
-      //   dragDOM = null;
-      // }
+
       if (!isInRight(e)) {
         return false;
       }
-      const x = e.clientX - tempX;
-      const y = e.clientY - tempY - leftPanelTop;
+      const x = e.clientX - tempX - relativeRectInstance.l;
+      const y = e.clientY - tempY - leftPanelTop - relativeRectInstance.t;
       const r = x + width;
       const b = y + height;
       const _node = { ...node, id: getUUID(), x, y, r, b, width, height };
