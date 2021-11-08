@@ -1,4 +1,6 @@
 export const containerId = 'RIGHT_PANEL';
+export const relativeRect = 'RELATIVE_RECT';
+export const flowLineCont = 'FLOW_LINE_CONT';
 
 export const arrowHei = 10;
 

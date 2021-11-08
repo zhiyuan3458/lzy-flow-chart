@@ -18,7 +18,10 @@ function FlowLine (props) {
   };
 
   return (
-    <g className={ martix.id === edge.id ? `${ Styles.flowLine } ${ Styles.clicked }` : `${ Styles.flowLine }` } onClick={ e => onClickEdge(edge, e) }>
+    <g
+      className={ martix.id === edge.id ? `${ Styles.flowLine } ${ Styles.clicked }` : `${ Styles.flowLine }` }
+      onClick={ e => onClickEdge(edge, e) }
+    >
       <path
         d={ `M ${ x1 },${ y1 } C ${ x1 },${ y1 + abs } ${ x2 },${ y2 - abs } ${ x2 },${ y2 }` }
         fill="none"
