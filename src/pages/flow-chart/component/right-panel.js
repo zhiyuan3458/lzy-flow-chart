@@ -46,8 +46,8 @@ function RightPanel (props) {
 
   const onMouseMove = e => {
     const { top: rightPanelTop, left: rightPanelLeft } = rightPanel.current.getBoundingClientRect();
-    const x = e.clientX - rightPanelLeft;
-    const y = e.clientY - rightPanelTop - arrowHei;
+    const x = e.clientX - rightPanelLeft - relativeRectInstance.l;
+    const y = e.clientY - rightPanelTop - arrowHei - relativeRectInstance.t;
     props.onMouseMoveInRight({ x, y });
   };
 
